@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import io from "socket.io-client";
 
 const useSocket = (...args) => {
-  const [socket, setSocket] = useState(io(...args));
+  const { current: socket } = useRef(io(...args));
   useEffect(() => {
     return () => {
-      socket.removeAllListeners();
-      socket.close();
+      socket && socket.removeAllListeners();
+      socket && socket.close();
     };
   }, [socket]);
-  return [socket, setSocket];
+  return [socket];
 };
 
 export default useSocket;
