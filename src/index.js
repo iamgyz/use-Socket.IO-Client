@@ -5,7 +5,7 @@ export const useSocket = (...args) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(() => io(...args));
+    setSocket(io(...args));
 
     return () => {
       socket && socket.removeAllListeners();
